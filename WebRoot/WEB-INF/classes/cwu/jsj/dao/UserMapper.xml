@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3.dtd">
+
+<mapper namespace="cwu.jsj.dao.UserMapper">
+	<select id="getUserByPhonenum" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl WHERE user_phone = #{userPhone} AND user_pwd= #{userPwd}
+	</select>
+	<select id="getUserByUsername" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl WHERE user_name = #{userName} AND user_pwd= #{userPwd}
+	</select>
+	<select id="isPhoneNumExist" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl WHERE user_phone = #{userPhone}
+	</select>
+	<insert id="createUser" parameterType="user">
+		INSERT INTO system_user_tbl(user_name,user_phone,user_pwd,user_role,create_time) VALUES(#{userPhone},#{userPhone},#{userPwd},#{userRole},#{createTime})
+	</insert>
+	<insert id="uploadeFile" parameterType="files">
+		INSERT INTO file_tbl(user_id,file_name,rfile_name,upload_time) VALUES(#{userId},#{fileName},#{rfileName},#{uploadTime})
+	</insert>
+	<select id="getFiles" parameterType="files" resultType="files">
+		SELECT * FROM file_tbl where user_id = #{userId}
+	</select>
+	<select id="getRfilename" parameterType="files" resultType="files">
+		SELECT * FROM file_tbl where id = #{id}
+	</select>
+	<delete id="deleteFile" parameterType="files">
+		DELETE FROM file_tbl where id = #{id}
+	</delete>
+	<select id="getPrintPrice" parameterType="price" resultType="price">
+		SELECT * FROM define_pay_tbl WHERE urgent_status = #{urgentStatus} AND print_type = #{printType}
+	</select>
+<!-- 配置文件名称通常与接口名称一致 -->
+<!-- 每一个操作的ID值必须和AdminLoginMapper接口中的方法名相对应 -->
+</mapper>

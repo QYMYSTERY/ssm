@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3.dtd">
+
+<mapper namespace="cwu.jsj.dao.AdminMapper">
+	
+	
+<!-- 配置文件名称通常与接口名称一致 -->
+<!-- 每一个操作的ID值必须和AdminLoginMapper接口中的方法名相对应 -->
+</mapper>
