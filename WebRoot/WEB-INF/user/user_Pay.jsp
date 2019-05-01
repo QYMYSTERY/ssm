@@ -24,51 +24,72 @@
         </div>
         
         <div class="row">
-        	<div class="col-md-2"></div>
-        	<div class="col-md-8">
-        	<table class="table table-condensed" style="margin: auto">
-	            <thead>
-	                <tr class="active">
-	                    <th colspan="2" text-align="center">打印信息：</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	                <tr class="active">
-	                    <td align="center">文件ID：</td>
-	                    <td align="center">123</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">文件名：</td>
-	                    <td align="center">简历.pdf</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">打印份数：</td>
-	                    <td align="center">2</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">是否紧急：</td>
-	                    <td align="center">否</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">打印类型：</td>
-	                    <td align="center">彩色单面</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">备注：</td>
-	                    <td align="center">无</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">文档总页数：</td>
-	                    <td align="center">10</td>
-	                </tr>
-	                <tr class="active">
-	                    <td align="center">打印金额：</td>
-	                    <td align="center" style="color:red">${Msg.printPrice}</td>
-	                </tr>
-	            </tbody>
-	        </table>
+        	<div class="col-md-3"></div>
+        	<div class="col-md-6">
+        		<form action="${pageContext.request.contextPath}/printFile/pay" method="post">
+		        	<table class="table table-condensed" style="margin: auto">
+			            <thead>
+			                <tr class="active">
+			                    <th colspan="2" text-align="center">打印信息：</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <tr class="active">
+			                    <td align="right">文件ID：</td>
+			                    <td align="center">
+			                    	<input type="text" name="fileId" value="${Msg.fileId}" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">文件名：</td>
+			                    <td align="center">
+			                    	<input type="text" name="fileName" value="${Msg.fileName}" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">打印份数：</td>
+			                    <td align="center">
+			                    	<input type="text" name="printCopies" value="${Msg.printCopies }" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">是否紧急：</td>
+			                    <td align="center">
+			                    	<input type="text" name="urgentStatus" value="${Msg.urgentStatus }" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">打印类型：</td>
+			                    <td align="center">
+			                    	<input type="text" name="printType" value="${Msg.printType }" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">备注：</td>
+			                    <td align="center">
+			                    	<input type="text" name="printRemark" value="${Msg.printRemark }" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr class="active">
+			                    <td align="right">文档总页数：</td>
+			                    <td align="center">
+			                    	<input type="text" name="pageNum" value="${Msg.pageNum}" disabled="disabled">
+			                    </td>
+			                </tr>
+			                <tr>
+			                    <td align="right">打印总金额：</td>
+			                    <td align="center" style="color:red">
+			                    	${Msg.payAmount}
+			                    </td>
+			                </tr>
+			            </tbody>
+			        </table>
+		        	<div>
+		        		<button type="submit" class="btn btn-primary">提交支付</button>
+		        	</div>
+	        	</form>
 	        </div>
-	        <div class="col-md-2"></div>
+	        <div class="col-md-3"></div>
         </div>
     </div>
 </body>

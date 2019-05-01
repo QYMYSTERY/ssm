@@ -3,12 +3,14 @@ package cwu.jsj.controller;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.ejb.BeforeCompletion;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,6 +38,7 @@ public class PrintFileController {
 		
 		return "user/user_PrintFile";
 	}
+	
 	@RequestMapping("/pay")
 	public String printFile(HttpServletRequest request,int fileId,String fileName,String printCopies,int urgentStatus,int printType,String printRemark){
 		
@@ -46,11 +49,62 @@ public class PrintFileController {
 			return "user/PrintFile";
 		}
 		Price price = printFileService.getPrintPrice(urgentStatus, printType);
-		String printPrice = price.getPayAmount().toString();
-		Msg.put("printPrice", printPrice);
+		//打印每一页的单价
+		double printPrice = price.getPayAmount();
+		//文档页码
+		int pageNum = 10;
+		String pageNumstr = Integer.toString(pageNum);
+		Msg.put("pageNum", pageNumstr);
+		
+		int printCop = Integer.parseInt(printCopies);
+		//计算打印需支付的总金额
+		double payAmount = pageNum*printPrice*printCop;
+		
+		String fileIdStr = Integer.toString(fileId);
+		Msg.put("fileId", fileIdStr);
+		
+		try {
+			String fName = new String(fileName.getBytes("gbk"),"utf-8");
+			Msg.put("fileName", fName);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Msg.put("printCopies", printCopies);
+		
+		if(urgentStatus==0){
+			Msg.put("urgentStatus", "否");
+		}
+		if(urgentStatus==1){
+			Msg.put("urgentStatus", "是");
+		}
+		if(printType==1){
+			Msg.put("printType", "黑白单面");
+		}
+		if(printType==2){
+			Msg.put("printType", "黑白双面");
+		}
+		if(printType==3){
+			Msg.put("printType", "彩色单面");
+		}
+		if(printType==4){
+			Msg.put("printType", "彩色双面");
+		}
+		if(printRemark == null || printRemark.trim().length() == 0){
+			Msg.put("printRemark", "无");
+		}else{
+			Msg.put("printRemark", printRemark);
+		}
+		
+		String payAmountStr = Double.toString(payAmount);
+		Msg.put("payAmount", payAmountStr);
+		
 		request.setAttribute("Msg", Msg);
 		return "user/user_Pay";
 	}
+	
+	
 	
 	@RequestMapping("/deleteFile")
 	public String deleteFile(int fileId){
