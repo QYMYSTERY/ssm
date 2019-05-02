@@ -5,6 +5,7 @@ import java.util.List;
 import cwu.jsj.model.Files;
 import cwu.jsj.model.Order;
 import cwu.jsj.model.Price;
+import cwu.jsj.model.Recharge;
 import cwu.jsj.model.User;
 
 public interface UserMapper {
@@ -38,4 +39,14 @@ public interface UserMapper {
 	public List<Order> getFinishedOrder(Order order);
 	//统计每个时段提交订单数量
 	public List<Integer> getTimeInterval();
+	//查询uuid
+	public Recharge getUuid(Recharge recharge);
+	//更新充值卡状态
+	public int updateCardStatus(Recharge recharge);
+	//查询用户信息
+	public User getUserInfo(User user);
+	//更新用户信息:用户名，手机号，密码
+	public int updateUserInfo(User user);
+	//更新用户信息：手机号，密码
+	public int updateNamePhone(User user);
 }

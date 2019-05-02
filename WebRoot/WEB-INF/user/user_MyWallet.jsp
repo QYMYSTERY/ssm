@@ -30,15 +30,20 @@
             <div class="col-md-4">
 	            <table class="table table-condensed" style="margin: auto">
 		            <tbody>
-		                <tr>
-		                    <td align="center">余额:</td>
-		                    <td align="center">50</td>
+		                <tr class="active">
+		                    <td align="center" style="font-size:28px;">余额:</td>
+		                    <td align="center" style="font-size:28px;">${balance}</td>
 		                </tr>
 		            </tbody>
 		        </table>
+		        <div class="row" style="height:8%" align="center"> </div>
+		        <div class="row" style="height:10%;color:red" align="center">
+		        	${uuidNull}${uuidNotExist}${cardInvalid}
+		        </div>
 		        <div align="center">
 	        		<a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="modal"
-                                    data-target="#myModal">充值</a>
+                                    data-target="#myModal">充    值</a>
+                    <a class="btn btn-primary btn-sm" href="#" role="button">明细</a>
 	        	</div>
 	        </div>
 	        <div class="col-md-4"></div>
@@ -52,11 +57,11 @@
                     <h4 class="modal-title">充值中心</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="#" method="post">
+                    <form class="form-horizontal" action="${pageContext.request.contextPath}/myWallet/recharge" method="post">
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">文件 ID:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="id" placeholder="文档名称" name="fileId"> 
+                            <label for="name" class="col-sm-3 control-label">充值卡序列号:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="id" placeholder="请输入充值卡序列号" name="uuid"> 
                             </div>
                         </div>
                         <div class="modal-footer">

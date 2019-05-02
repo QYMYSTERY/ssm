@@ -64,6 +64,26 @@
 	<select id="getTimeInterval" resultType="Integer">
 		SELECT time_interval,count(1) AS counts FROM order_tbl GROUP BY time_interval
 	</select>
+	<!-- 查询Uuid -->
+	<select id="getUuid" parameterType="recharge" resultType="recharge">
+		SELECT * FROM recharge_tbl WHERE uuid = #{uuid}
+	</select>
+	<!-- 更新充值卡状态 -->
+	<update id="updateCardStatus" parameterType="recharge">
+		UPDATE recharge_tbl SET status = 0 WHERE uuid = #{uuid}
+	</update>
+	<!-- 查询用户信息 -->
+	<select id="getUserInfo" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl where id = #{id}
+	</select>
+	<!-- 更新用户所有信息 -->
+	<update id="updateUserInfo" parameterType="user">
+		UPDATE system_user_tbl SET user_name = #{userName},user_phone = #{userPhone},user_pwd = #{userPwd} WHERE id = #{id}
+	</update>
+	<!-- 更新用户名手机号 -->
+	<update id="updateNamePhone" parameterType="user">
+		UPDATE system_user_tbl SET user_name = #{userName},user_phone = #{userPhone} WHERE id = #{id}
+	</update>
 <!-- 配置文件名称通常与接口名称一致 -->
 <!-- 每一个操作的ID值必须和AdminLoginMapper接口中的方法名相对应 -->
 </mapper>

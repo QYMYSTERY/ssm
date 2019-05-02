@@ -70,14 +70,14 @@ public class LoginController {
 				int userid=user.getId();
 				session.setAttribute("username", username);
 				session.setAttribute("userId", userid);
-				return "admin/admin_Index";
+				return "forward:/newOrder/urgencyNewOrder";
 			}
 			else{
 				String username=user.getUserName();
 				int userid=user.getId();
 				session.setAttribute("username", username);
 				session.setAttribute("userId", userid);
-				return "user/user_Index";
+				return "forward:/index/statistialChart";
 			}
 		}else{
 			errorMap.put("error", "帐号不存在或密码错误！");

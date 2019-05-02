@@ -1,24 +1,43 @@
 package cwu.jsj.controller;
 
 import java.util.List;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+
+import cwu.jsj.model.Order;
+import cwu.jsj.service.AdminNewOrderService;
 
 @Controller
 @RequestMapping("/newOrder")
 public class AdminNewOrderController {
+	@Resource
+	private AdminNewOrderService adminNewOrderService;
 	
-	@RequestMapping("/urgency")
-	public String echartShow(HttpServletRequest request) {
+	@RequestMapping("/urgencyNewOrder")
+	public String urgencyNewOrderShow(HttpServletRequest request) {
+		//订单表里查询订单状态为:1（已提交）且为紧急状态的订单
+		List<Order> order = adminNewOrderService.getUrgencyNewOrder();
+		request.setAttribute("listOrder", order);
 		return "admin/admin_Index";
-	}	
+	}
+	
+	@RequestMapping("/generalNewOrder")
+	public String generalNewOrderShow(HttpServletRequest request) {
+		//订单表里查询订单状态为:1（已提交）且为非紧急状态的订单
+		List<Order> order = adminNewOrderService.getGeneralNewOrder();
+		request.setAttribute("listOrder", order);
+		return "admin/admin_Index";
+	}
+	
+	@RequestMapping("/allNewOrder")
+	public String newOrderShow(HttpServletRequest request) {
+		//订单表里查询订单状态为:1（已提交）的订单
+		List<Order> order = adminNewOrderService.getNewOrder();
+		request.setAttribute("listOrder", order);
+		return "admin/admin_Index";
+	}
 }
