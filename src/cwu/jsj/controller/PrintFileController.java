@@ -1,16 +1,15 @@
 package cwu.jsj.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.ejb.BeforeCompletion;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cwu.jsj.model.Files;
 import cwu.jsj.model.Price;
+import cwu.jsj.model.User;
 import cwu.jsj.service.PrintFileService;
 
 @Controller
@@ -39,14 +39,72 @@ public class PrintFileController {
 		return "user/user_PrintFile";
 	}
 	
+	@RequestMapping("/createOrder")
+	public String createOrder(HttpServletRequest request,HttpSession session,String fileIdstr,String fileName,String printCopiesstr,String urgentStatusstr,String printTypestr,String printRemark,String payAmountstr) throws ParseException{
+		int urgentStatus;
+		int printType;
+		//查询用户余额
+		int userId = (int) session.getAttribute("userId");
+		User user = printFileService.getRemainSum(userId);
+		double remainSum = user.getRemainSum();
+		//打印总金额		
+		double payAmount=Double.parseDouble(payAmountstr);
+		if(payAmount>remainSum){
+			String noRemainSum = "余额不足，请充值！";
+			request.setAttribute("noRemainSum", noRemainSum);
+			return "user/user_Pay";
+		}
+		
+		//扣除打印费用
+		double remainSum1 = remainSum-payAmount;
+		int user2 = printFileService.updateRemainSum(userId,remainSum1);
+		if(user2>0){
+			//支付成功，创建订单
+			//获取系统当前时间
+			Date date = new Date();
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+			String createTimeStr=dateFormat.format(date);
+			Date createTime = dateFormat.parse(createTimeStr);
+			
+			int fileId = Integer.parseInt(fileIdstr);
+			if(urgentStatusstr.equals("是")){
+				urgentStatus = 1;
+			}else{
+				urgentStatus = 0;
+			}
+			if(printTypestr.equals("黑白单面")){
+				printType=1;
+			}else if(printTypestr.equals("黑白双面")){
+				printType=2;
+			}else if(printTypestr.equals("彩色单面")){
+				printType=3;
+			}else{
+				printType=4;
+			}
+			int printCopies = Integer.parseInt(printCopiesstr);
+			//获取提交订单时系统时间（小时）
+			Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			
+			int order = printFileService.createOrder(userId, createTime, fileName, urgentStatus, printType, printCopies, printRemark, hour,fileId,payAmount);
+			return "forward:/myOrder/unfinished";
+		}else{
+			String payError = "支付失败，请重试！"; 
+			request.setAttribute("payError", payError);
+			return "user/user_Pay";
+		}
+		
+	}
+//创建订单信息	
 	@RequestMapping("/pay")
 	public String printFile(HttpServletRequest request,int fileId,String fileName,String printCopies,int urgentStatus,int printType,String printRemark){
 		
 		Map<String, String> Msg = new HashMap<String, String>();
 		
 		if(printCopies == null || printCopies.trim().length() == 0){
-			Msg.put("printCopiesNull", "请输入打印份数");
-			return "user/PrintFile";
+			String printCopiesNull="请输入打印份数";
+			request.setAttribute("printCopiesNull", printCopiesNull);
+			return "forward:/printFile/list.do";
 		}
 		Price price = printFileService.getPrintPrice(urgentStatus, printType);
 		//打印每一页的单价
@@ -62,15 +120,8 @@ public class PrintFileController {
 		
 		String fileIdStr = Integer.toString(fileId);
 		Msg.put("fileId", fileIdStr);
-		
-		try {
-			String fName = new String(fileName.getBytes("gbk"),"utf-8");
-			Msg.put("fileName", fName);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
+		Msg.put("fileName", fileName);
 		Msg.put("printCopies", printCopies);
 		
 		if(urgentStatus==0){
@@ -105,7 +156,7 @@ public class PrintFileController {
 	}
 	
 	
-	
+//删除文件	
 	@RequestMapping("/deleteFile")
 	public String deleteFile(int fileId){
 		Files files=printFileService.getRfilename(fileId);
@@ -117,7 +168,7 @@ public class PrintFileController {
 		printFileService.deleteFile(fileId);
 		return "redirect:/printFile/list.do";
 	}
-	
+//上传文件	
 	@RequestMapping("/upload.do")
 	public String doUpload(MultipartFile uploadFile,HttpSession session,HttpServletRequest request) throws Exception{
 		

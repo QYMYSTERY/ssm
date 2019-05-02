@@ -10,6 +10,7 @@ public class User implements Serializable{
 	private String userPwd;
 	private int userRole;
 	private Date createTime;
+	private double remainSum;
 	
 	public User() {
 		super();
@@ -62,6 +63,14 @@ public class User implements Serializable{
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public double getRemainSum() {
+		return remainSum;
+	}
+
+	public void setRemainSum(double remainSum) {
+		this.remainSum = remainSum;
 	}
 	
 }

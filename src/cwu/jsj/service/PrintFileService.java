@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import cwu.jsj.dao.UserMapper;
 import cwu.jsj.model.Files;
+import cwu.jsj.model.Order;
 import cwu.jsj.model.Price;
+import cwu.jsj.model.User;
 @Service
 public class PrintFileService {
 	@Resource
@@ -52,5 +54,36 @@ public class PrintFileService {
 		price.setUrgentStatus(urgentStatus);
 		Price price1 = userMapper.getPrintPrice(price);
 		return price1;
+	}
+	
+	public User getRemainSum(int userId){
+		User user = new User();
+		user.setId(userId);
+		User user1 = userMapper.getRemainSum(user);
+		return user1;
+	}
+	
+	public int updateRemainSum(int userId,double remainSum){
+		User user = new User();
+		user.setId(userId);
+		user.setRemainSum(remainSum);
+		int user1 = userMapper.updateRemainSum(user);
+		return user1;
+	}
+	
+	public int createOrder(int userId,Date createTime,String fileName,int urgentStatus,int printType,int printCopies,String printRemark,int timeInterval,int fileId,double payAmount){
+		Order order = new Order();
+		order.setUserId(userId);
+		order.setCreateTime(createTime);
+		order.setFileName(fileName);
+		order.setUrgentStatus(urgentStatus);
+		order.setPrintType(printType);
+		order.setPrintCopies(printCopies);
+		order.setPrintRemark(printRemark);
+		order.setTimeInterval(timeInterval);
+		order.setFileId(fileId);
+		order.setPayAmount(payAmount);
+		int order1 = userMapper.createOrder(order);
+		return order1;
 	}
 }

@@ -26,7 +26,7 @@
         <div class="row">
         	<div class="col-md-3"></div>
         	<div class="col-md-6">
-        		<form action="${pageContext.request.contextPath}/printFile/pay" method="post">
+        		<form action="${pageContext.request.contextPath}/printFile/createOrder" method="post">
 		        	<table class="table table-condensed" style="margin: auto">
 			            <thead>
 			                <tr class="active">
@@ -35,57 +35,60 @@
 			            </thead>
 			            <tbody>
 			                <tr class="active">
-			                    <td align="right">文件ID：</td>
+			                    <td align="right">文件ID号：</td>
 			                    <td align="center">
-			                    	<input type="text" name="fileId" value="${Msg.fileId}" disabled="disabled">
+			                    	<input type="text" name="fileIdstr" value="${Msg.fileId}" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
-			                    <td align="right">文件名：</td>
+			                    <td align="right">文件名称：</td>
 			                    <td align="center">
-			                    	<input type="text" name="fileName" value="${Msg.fileName}" disabled="disabled">
+			                    	<input type="text" name="fileName" value="${Msg.fileName}" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
 			                    <td align="right">打印份数：</td>
 			                    <td align="center">
-			                    	<input type="text" name="printCopies" value="${Msg.printCopies }" disabled="disabled">
+			                    	<input type="text" name="printCopiesstr" value="${Msg.printCopies }" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
 			                    <td align="right">是否紧急：</td>
 			                    <td align="center">
-			                    	<input type="text" name="urgentStatus" value="${Msg.urgentStatus }" disabled="disabled">
+			                    	<input type="text" name="urgentStatusstr" value="${Msg.urgentStatus }" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
 			                    <td align="right">打印类型：</td>
 			                    <td align="center">
-			                    	<input type="text" name="printType" value="${Msg.printType }" disabled="disabled">
+			                    	<input type="text" name="printTypestr" value="${Msg.printType }" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
 			                    <td align="right">备注：</td>
 			                    <td align="center">
-			                    	<input type="text" name="printRemark" value="${Msg.printRemark }" disabled="disabled">
+			                    	<input type="text" name="printRemark" value="${Msg.printRemark }" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			                <tr class="active">
 			                    <td align="right">文档总页数：</td>
 			                    <td align="center">
-			                    	<input type="text" name="pageNum" value="${Msg.pageNum}" disabled="disabled">
+			                    	<input type="text" name="pageNumstr" value="${Msg.pageNum}" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
-			                <tr>
-			                    <td align="right">打印总金额：</td>
-			                    <td align="center" style="color:red">
-			                    	${Msg.payAmount}
+			                <tr class="active">
+			                    <td align="right"><b>打印总金额：</b></td>
+			                    <td align="center" style="color:red;font-size:20px">
+			                    	<input type="text" name="payAmountstr" value="${Msg.payAmount}" readonly="readonly" style="width:80%">
 			                    </td>
 			                </tr>
 			            </tbody>
 			        </table>
-		        	<div>
-		        		<button type="submit" class="btn btn-primary">提交支付</button>
+			        <div style="height:10%" align="center">
+			        	${noRemainSum}${payError}
+			        </div>
+		        	<div align="center">
+		        		<button type="submit" class="btn btn-primary">确认支付</button>
 		        	</div>
 	        	</form>
 	        </div>

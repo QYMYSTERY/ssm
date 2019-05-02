@@ -1,24 +1,30 @@
 package cwu.jsj.controller;
 
-import java.util.List;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+
+import cwu.jsj.service.StatistialChartService;
 
 @Controller
 @RequestMapping("/index")
 public class StatistialChartController {
-	
+	@Resource
+	private StatistialChartService StatistialChartService;
 	@RequestMapping("/statistialChart")
 	public String echartShow(HttpServletRequest request) {
+		
+		List<Integer> list = StatistialChartService.getTimeInterval();
+		
+		for(int i = 0 ; i < list.size() ; i++) {
+			System.out.println(list.get(i));
+			}
+		
 		return "user/user_Index";
 	}	
 }

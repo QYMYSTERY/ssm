@@ -29,7 +29,7 @@
                 	<form action="${pageContext.request.contextPath }/printFile/upload.do" method="post" enctype="multipart/form-data">
 	                    <input type="file" name="uploadFile" style="display: inline-block; margin-left: 15px;">
 	                    <input class="btn btn-primary btn-sm" type="submit" value="上传"/>
-	                   	 ${uploadMsg}
+	                   	 ${uploadMsg}${printCopiesNull}
 	                   	 <br/>
 	                   	 ${files}
                     </form>

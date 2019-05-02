@@ -25,7 +25,7 @@
                                 <a href="${pageContext.request.contextPath}/cloudStorage/list.do">我的云盘</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/personal/myinfo">个人中心</a>
+                                <a href="${pageContext.request.contextPath}/myWallet/balance">我的钱包</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/interChange/list.do">交流中心</a>
@@ -33,7 +33,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="javascript:;">欢迎来到女院云打印系统</a></li>
-                            <li><a href="javascript:;">${username}</a></li>
+                            <li><a href="${pageContext.request.contextPath}/personal/myinfo">${username}</a></li>
                             <li><a href="${pageContext.request.contextPath}/exit/toLogin">退出</a></li>
                         </ul>
                     </div>

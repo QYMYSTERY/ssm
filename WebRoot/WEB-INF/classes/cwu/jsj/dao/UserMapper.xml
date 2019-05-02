@@ -4,32 +4,65 @@
 	"http://mybatis.org/dtd/mybatis-3.dtd">
 
 <mapper namespace="cwu.jsj.dao.UserMapper">
+	<!-- 通过手机号查询用户信息 -->
 	<select id="getUserByPhonenum" parameterType="user" resultType="user">
 		SELECT * FROM system_user_tbl WHERE user_phone = #{userPhone} AND user_pwd= #{userPwd}
 	</select>
+	<!-- 通过用户名查询用户 -->
 	<select id="getUserByUsername" parameterType="user" resultType="user">
 		SELECT * FROM system_user_tbl WHERE user_name = #{userName} AND user_pwd= #{userPwd}
 	</select>
+	<!-- 查询手机号是否已注册 -->
 	<select id="isPhoneNumExist" parameterType="user" resultType="user">
 		SELECT * FROM system_user_tbl WHERE user_phone = #{userPhone}
 	</select>
+	<!-- 创建新用户 -->
 	<insert id="createUser" parameterType="user">
-		INSERT INTO system_user_tbl(user_name,user_phone,user_pwd,user_role,create_time) VALUES(#{userPhone},#{userPhone},#{userPwd},#{userRole},#{createTime})
+		INSERT INTO system_user_tbl(user_name,user_phone,user_pwd,user_role,create_time,remain_sum) VALUES(#{userPhone},#{userPhone},#{userPwd},#{userRole},#{createTime},0.00)
 	</insert>
+	<!-- 插入上传文件信息 -->
 	<insert id="uploadeFile" parameterType="files">
 		INSERT INTO file_tbl(user_id,file_name,rfile_name,upload_time) VALUES(#{userId},#{fileName},#{rfileName},#{uploadTime})
 	</insert>
+	<!-- 查询文件信息 -->
 	<select id="getFiles" parameterType="files" resultType="files">
 		SELECT * FROM file_tbl where user_id = #{userId}
 	</select>
+	<!-- 查询文件实际存储名 -->
 	<select id="getRfilename" parameterType="files" resultType="files">
 		SELECT * FROM file_tbl where id = #{id}
 	</select>
+	<!-- 删除文件 -->
 	<delete id="deleteFile" parameterType="files">
 		DELETE FROM file_tbl where id = #{id}
 	</delete>
+	<!-- 查询不同打印类型单价 -->
 	<select id="getPrintPrice" parameterType="price" resultType="price">
 		SELECT * FROM define_pay_tbl WHERE urgent_status = #{urgentStatus} AND print_type = #{printType}
+	</select>
+	<!-- 查询用户余额 -->
+	<select id="getRemainSum" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl where id = #{id}
+	</select>
+	<!-- 更新用户余额 -->
+	<update id="updateRemainSum" parameterType="user">
+		UPDATE system_user_tbl SET remain_sum = #{remainSum} WHERE id = #{id}
+	</update>
+	<!-- 插入新创建订单信息 -->
+	<insert id="createOrder" parameterType="order">
+		INSERT INTO order_tbl(user_id,create_time,order_status,file_name,urgent_status,print_type,print_copies,print_remark,time_interval,file_id,pay_amount) VALUES(#{userId},#{createTime},1,#{fileName},#{urgentStatus},#{printType},#{printCopies},#{printRemark},#{timeInterval},#{fileId},#{payAmount})
+	</insert>
+	<!-- 查询未完成的订单 -->
+	<select id="getUnfinishedOrder" parameterType="order" resultType="order">
+		SELECT * FROM order_tbl where user_id = #{userId} and order_status in(1,2)
+	</select>
+	<!-- 查询已完成的订单 -->
+	<select id="getFinishedOrder" parameterType="order" resultType="order">
+		SELECT * FROM order_tbl where user_id = #{userId} and order_status = 3
+	</select>
+	<!-- 查询每个时段提交的订单数量 -->
+	<select id="getTimeInterval" resultType="Integer">
+		SELECT time_interval,count(1) AS counts FROM order_tbl GROUP BY time_interval
 	</select>
 <!-- 配置文件名称通常与接口名称一致 -->
 <!-- 每一个操作的ID值必须和AdminLoginMapper接口中的方法名相对应 -->
