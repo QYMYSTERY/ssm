@@ -70,7 +70,7 @@ public class LoginController {
 				int userid=user.getId();
 				session.setAttribute("username", username);
 				session.setAttribute("userId", userid);
-				return "forward:/newOrder/urgencyNewOrder";
+				return "forward:/newOrder/allNewOrder";
 			}
 			else{
 				String username=user.getUserName();

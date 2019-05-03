@@ -54,6 +54,9 @@
                             	<c:if test="${orderList.orderStatus==2}">
                             		打印中
                             	</c:if>
+                            	<c:if test="${orderList.orderStatus==3}">
+                            		已完成
+                            	</c:if>
                             </td>
                             <td><fmt:formatDate type="both" value="${orderList.createTime}" /></td>
                             <td>

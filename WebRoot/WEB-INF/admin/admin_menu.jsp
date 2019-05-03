@@ -13,7 +13,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="${pageContext.request.contextPath}/newOrder/urgencyNewOrder">最新订单</a>
+                                <a href="${pageContext.request.contextPath}/newOrder/allNewOrder">最新订单</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/StatisticalCenter/echart">统计中心</a>

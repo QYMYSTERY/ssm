@@ -13,6 +13,7 @@ public class Files implements Serializable{
 	private String fileName;
 	private String rfileName;
 	private Date uploadTime;
+	private String uploadUrl;
 	
 	public Files() {
 		super();
@@ -58,5 +59,12 @@ public class Files implements Serializable{
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
 	}
-	
+
+	public String getUploadUrl() {
+		return uploadUrl;
+	}
+
+	public void setUploadUrl(String uploadUrl) {
+		this.uploadUrl = uploadUrl;
+	}
 }

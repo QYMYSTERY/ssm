@@ -16,6 +16,22 @@
 	<select id="getNewOrder" resultType="order">
 		SELECT * FROM order_tbl where order_status = 1
 	</select>
+	<!-- 查询订单状态为:2（已提交）的订单 -->
+	<select id="getPrintingOrder" resultType="order">
+		SELECT * FROM order_tbl where order_status = 2
+	</select>
+	<!-- 查询订单状态为:3（已提交）的订单 -->
+	<select id="getFinishedOrder" resultType="order">
+		SELECT * FROM order_tbl where order_status = 3
+	</select>
+	<!-- 查询订单状态为:3（已提交）的订单 -->
+	<select id="getAllOrder" resultType="order">
+		SELECT * FROM order_tbl where order_status in(2,3)
+	</select>
+	<!-- 修改订单状态 -->
+	<update id="updateOrderStatus" parameterType="order">
+		UPDATE order_tbl SET order_status = #{orderStatus} WHERE id = #{id}
+	</update>
 <!-- 配置文件名称通常与接口名称一致 -->
 <!-- 每一个操作的ID值必须和AdminLoginMapper接口中的方法名相对应 -->
 </mapper>

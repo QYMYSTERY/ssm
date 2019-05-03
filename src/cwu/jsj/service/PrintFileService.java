@@ -17,12 +17,13 @@ public class PrintFileService {
 	@Resource
 	private UserMapper userMapper;
 	
-	public int uploadFile(int userId,String fileName,String rfileName,Date uploadTime){
+	public int uploadFile(int userId,String fileName,String rfileName,Date uploadTime,String uploadURL){
 		Files file = new Files();
 		file.setUserId(userId);
 		file.setFileName(fileName);
 		file.setRfileName(rfileName);
 		file.setUploadTime(uploadTime);
+		file.setUploadUrl(uploadURL);
 		int file1 = userMapper.uploadeFile(file);
 		return file1;
 	}
@@ -71,7 +72,7 @@ public class PrintFileService {
 		return user1;
 	}
 	
-	public int createOrder(int userId,Date createTime,String fileName,int urgentStatus,int printType,int printCopies,String printRemark,int timeInterval,int fileId,double payAmount){
+	public int createOrder(int userId,Date createTime,String fileName,int urgentStatus,int printType,int printCopies,String printRemark,int timeInterval,String fileUrl,double payAmount){
 		Order order = new Order();
 		order.setUserId(userId);
 		order.setCreateTime(createTime);
@@ -81,7 +82,7 @@ public class PrintFileService {
 		order.setPrintCopies(printCopies);
 		order.setPrintRemark(printRemark);
 		order.setTimeInterval(timeInterval);
-		order.setFileId(fileId);
+		order.setFileUrl(fileUrl);
 		order.setPayAmount(payAmount);
 		int order1 = userMapper.createOrder(order);
 		return order1;

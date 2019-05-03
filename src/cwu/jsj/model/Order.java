@@ -14,7 +14,7 @@ public class Order implements Serializable{
 	private int printCopies;
 	private String printRemark;
 	private int timeInterval;
-	private int fileId;
+	private String fileUrl;
 	private double payAmount;
 	
 	public Order() {
@@ -102,14 +102,6 @@ public class Order implements Serializable{
 		this.timeInterval = timeInterval;
 	}
 
-	public int getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
-
 	public double getPayAmount() {
 		return payAmount;
 	}
@@ -117,5 +109,15 @@ public class Order implements Serializable{
 	public void setPayAmount(double payAmount) {
 		this.payAmount = payAmount;
 	}
+
+	public String getFileUrl() {
+		return fileUrl;
+	}
+
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+
+	
 	
 }

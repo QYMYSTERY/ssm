@@ -40,4 +40,13 @@ public class AdminNewOrderController {
 		request.setAttribute("listOrder", order);
 		return "admin/admin_Index";
 	}
+	
+	@RequestMapping("/downloadFile")
+	public String downloadFile(HttpServletRequest request,int orderId) {
+		//点击下载时更新订单状态
+		int orderStatus = 2;
+		adminNewOrderService.updateStatus(orderId, orderStatus);
+		return "forward:/ManageOrder/PrintingOrder";
+	}
+
 }

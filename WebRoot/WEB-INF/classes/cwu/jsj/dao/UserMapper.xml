@@ -22,7 +22,7 @@
 	</insert>
 	<!-- 插入上传文件信息 -->
 	<insert id="uploadeFile" parameterType="files">
-		INSERT INTO file_tbl(user_id,file_name,rfile_name,upload_time) VALUES(#{userId},#{fileName},#{rfileName},#{uploadTime})
+		INSERT INTO file_tbl(user_id,file_name,rfile_name,upload_time,upload_url) VALUES(#{userId},#{fileName},#{rfileName},#{uploadTime},#{uploadUrl})
 	</insert>
 	<!-- 查询文件信息 -->
 	<select id="getFiles" parameterType="files" resultType="files">
@@ -50,7 +50,7 @@
 	</update>
 	<!-- 插入新创建订单信息 -->
 	<insert id="createOrder" parameterType="order">
-		INSERT INTO order_tbl(user_id,create_time,order_status,file_name,urgent_status,print_type,print_copies,print_remark,time_interval,file_id,pay_amount) VALUES(#{userId},#{createTime},1,#{fileName},#{urgentStatus},#{printType},#{printCopies},#{printRemark},#{timeInterval},#{fileId},#{payAmount})
+		INSERT INTO order_tbl(user_id,create_time,order_status,file_name,urgent_status,print_type,print_copies,print_remark,time_interval,file_url,pay_amount) VALUES(#{userId},#{createTime},1,#{fileName},#{urgentStatus},#{printType},#{printCopies},#{printRemark},#{timeInterval},#{fileUrl},#{payAmount})
 	</insert>
 	<!-- 查询未完成的订单 -->
 	<select id="getUnfinishedOrder" parameterType="order" resultType="order">

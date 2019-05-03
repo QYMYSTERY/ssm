@@ -26,16 +26,17 @@
             <jsp:include page="admin_menu.jsp" flush="true"/>
             <div style="padding: 0 15px; flex: 1;">
             	 <div class="col-sm-8 text-xs-center text-left" style="margin-top: 15px; padding-left: 0;">
+            	 	
+                    <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/newOrder/allNewOrder" role="button">所有</a>
                     <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/newOrder/urgencyNewOrder" role="button">紧急</a>
                     <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/newOrder/generalNewOrder" role="button">普通</a>
-                    <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/newOrder/allNewOrder" role="button">所有</a>
                 </div>
                 <table data-toggle="table" id="table" data-striped="true" data-sort-name="订单编号" data-sort-order="desc"
                     data-pagination="true" data-search="true" data-strict-search="true" data-pagination-loop="false" data-page-size="5" data-page-list=[5,10,20]>
                     <thead>
                         <tr>
                             <th data-field="订单编号" data-align="center" data-sortable="true">订单编号</th>
-                            <th data-field="用户名" data-align="center" data-sortable="true">用户名</th>
+                            <th data-field="用户名" data-align="center" data-sortable="true">用户ID</th>
                             <th data-field="文件名称" data-align="center" data-sortable="true">文件名称</th>
                             <th data-field="订单状态" data-align="center" data-sortable="true">订单状态</th>
                             <th data-field="提交时间" data-align="center" data-sortable="true">提交时间</th>
@@ -90,7 +91,8 @@
                             </td>
                             <td>${orderList.printRemark}</td>
                             <td>
-                            	<a class="btn btn-danger btn-sm" href="#" role="button">下载</a>
+                            	<a class="btn btn-danger btn-sm" href="${pageContext.request.contextPath}/newOrder/downloadFile?orderId=${orderList.id}" 
+                            	role="button">下载</a>
                             </td>
                         </tr>
                       </c:forEach>

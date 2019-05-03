@@ -85,8 +85,10 @@ public class PrintFileController {
 			//获取提交订单时系统时间（小时）
 			Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
 			int hour = c.get(Calendar.HOUR_OF_DAY);
-			
-			int order = printFileService.createOrder(userId, createTime, fileName, urgentStatus, printType, printCopies, printRemark, hour,fileId,payAmount);
+			//查询文件URL
+			Files file = printFileService.getRfilename(fileId);
+			String url=file.getUploadUrl();
+			int order = printFileService.createOrder(userId, createTime, fileName, urgentStatus, printType, printCopies, printRemark, hour,url,payAmount);
 			return "forward:/myOrder/unfinished";
 		}else{
 			String payError = "支付失败，请重试！"; 
@@ -194,18 +196,17 @@ public class PrintFileController {
 				String rfilename2 = Long.toString(timeStam);
 				//文件重命名：userId-系统当前时间戳.文件名后缀
 				String rfilename =rfilename1+ "-"+rfilename2+"."+suffix;
-
-				// 保存文件信息
-				int files = printFileService.uploadFile(userId, filename, rfilename, uploadTime);
-				if(files!=0){
-					//存储
-					File file = new File("F:/1ZQ/SSMuploadFile",rfilename);
-					uploadFile.transferTo(file);
-					uploadMsg = "上传成功";
-				}else{
-					uploadMsg = "上传失败，请重试";
-				}
 				
+				//存储
+				String uploadPath = "F:/1ZQ/SSMuploadFile";
+				File file = new File(uploadPath,rfilename);
+				uploadFile.transferTo(file);
+				uploadMsg = "上传成功";
+				
+				String uploadURL = uploadPath + "/" + rfilename;
+				// 保存文件信息
+				int files = printFileService.uploadFile(userId, filename, rfilename, uploadTime,uploadURL);	
+		
 			}else{
 				uploadMsg = "暂不支持该种格式的文档";
 			}

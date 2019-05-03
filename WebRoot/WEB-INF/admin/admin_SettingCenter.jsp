@@ -23,6 +23,7 @@
         <div class="row" style="display: flex; flex-direction: column; height: 100%;">
             <jsp:include page="admin_menu.jsp" flush="true"/>
         </div>
+        
     </div>
 </body>
 </html>
