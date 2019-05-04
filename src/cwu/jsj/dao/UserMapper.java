@@ -9,6 +9,8 @@ import cwu.jsj.model.Recharge;
 import cwu.jsj.model.User;
 
 public interface UserMapper {
+	//查询用户名是否存在
+	public User isNameExist(User user);
 	//通过手机号查询用户信息
 	public User getUserByPhonenum(User user);
 	//通过用户名查询用户信息

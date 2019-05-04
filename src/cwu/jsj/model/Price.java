@@ -8,6 +8,7 @@ public class Price implements Serializable{
 	private int urgentStatus;
 	private int printType;
 	private Double payAmount;
+	private String explain;
 	
 	public Price() {
 		super();
@@ -44,6 +45,14 @@ public class Price implements Serializable{
 
 	public void setPayAmount(Double payAmount) {
 		this.payAmount = payAmount;
+	}
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
 	}
 	
 	

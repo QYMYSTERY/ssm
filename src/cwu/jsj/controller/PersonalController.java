@@ -64,6 +64,13 @@ public class PersonalController {
 			if(oldUserrPwd.equals(oldPwd)){
 				User user2 = personalService.isPhoneNumExist(userPhone);
 				if(user2==null){
+					//判断用户名是否重复
+					User user3 = personalService.isNameExist(userName);
+					if(user3!=null){
+						Msg = "该用户名已使用";
+						request.setAttribute("Msg", Msg);
+						return "forward:/personal/myinfo";
+					}
 					personalService.updateNamePhone(userId, userName, userPhone);
 					return "forward:/personal/myinfo";
 				}else{

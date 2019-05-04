@@ -22,7 +22,7 @@
                                 <a href="${pageContext.request.contextPath}/ManageOrder/OrderList">管理订单</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/SettingCenter/setting">设置中心</a>
+                                <a href="${pageContext.request.contextPath}/SettingCenter/show">设置中心</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/AuthorityManage/adminList">权限管理</a>

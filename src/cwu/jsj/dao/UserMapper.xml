@@ -4,6 +4,10 @@
 	"http://mybatis.org/dtd/mybatis-3.dtd">
 
 <mapper namespace="cwu.jsj.dao.UserMapper">
+	<!-- 查询用户名是否存在 -->
+	<select id="isNameExist" parameterType="user" resultType="user">
+		SELECT * FROM system_user_tbl WHERE user_name = #{userName}
+	</select>
 	<!-- 通过手机号查询用户信息 -->
 	<select id="getUserByPhonenum" parameterType="user" resultType="user">
 		SELECT * FROM system_user_tbl WHERE user_phone = #{userPhone} AND user_pwd= #{userPwd}

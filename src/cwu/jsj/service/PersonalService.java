@@ -49,4 +49,11 @@ public class PersonalService {
 		return user1;
 		
 	}
+	
+	public User isNameExist(String userName){
+		User user=new User();
+		user.setUserName(userName);
+		User user1 = userMapper.isNameExist(user);
+		return user1;
+	}
 }
